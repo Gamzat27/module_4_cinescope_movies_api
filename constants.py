@@ -28,3 +28,15 @@ modified_movie = {
   "location": "SPB",
   "genreId": 7
 }
+
+review_body = {
+  "rating": 5,
+  "text": "Отличное кино, для просмотра на досуге. Рекомендую."
+}
+
+edited_review = {
+  "rating": 5,
+  "text": "Отличное кино, для просмотра на досуге. Рекомендую. Написано с бэка"
+}
+
+user_id = "01993c58-0fd0-41fd-8976-f675521fc6f1"

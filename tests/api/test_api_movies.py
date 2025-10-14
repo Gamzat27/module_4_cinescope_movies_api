@@ -1,6 +1,6 @@
 import requests
 from constants import (BASE_URL, HEADERS, MOVIES_ENDPOINT, MOVIES_ID, GENRES_ENDPOINT, REVIEWS_ENDPOINT,
-                       MOVIE, modified_movie)
+                       MOVIE, modified_movie, review_body, edited_review, user_id)
 
 
 class TestApiMovies():
@@ -36,12 +36,54 @@ class TestApiMovies():
         assert response.status_code == 200, "Фильм не найден."
         assert response.json()["id"] == MOVIES_ID, "Айди запрашиваемого фильма и полученного в ответе разный."
 
+    #Тест создание отзыва к фильму (позитив)
+    def test_creating_a_movie_review(self, session_super_admin):
+        response = session_super_admin.post(url=f"{BASE_URL}{MOVIES_ENDPOINT}{MOVIES_ID}{REVIEWS_ENDPOINT}",
+                                            json=review_body)
+        try:
+            assert response.status_code == 201, "Отзыв к фильму не создан."
+        except AssertionError:
+            assert response.status_code == 409, f"Непредвиденная ошибка. Статус код ошибки: {response.status_code}"
+
     #Тест для получения отзывов фильма (позитивный кейс).
     def test_get_reviews_for_a_movie(self):
         response = requests.get(url=f"{BASE_URL}{MOVIES_ENDPOINT}{MOVIES_ID}{REVIEWS_ENDPOINT}", headers=HEADERS)
 
         assert response.status_code == 200, (f"Запрос не выдал никакой информации."
                                              f" Статус код ответа: {response.status_code}")
+
+    #Тест редактирование отзыва к фильму (позитив)
+    def test_edited_review(self, session_super_admin):
+        response = session_super_admin.put(url=f"{BASE_URL}{MOVIES_ENDPOINT}{MOVIES_ID}{REVIEWS_ENDPOINT}",
+                                           json=edited_review)
+        assert response.status_code == 200, "Отзыв отредактировать не получилось."
+
+    # Тест для получения отзывов фильма (позитивный кейс).
+    def test_get_reviews_movie(self):
+        response = requests.get(url=f"{BASE_URL}{MOVIES_ENDPOINT}{MOVIES_ID}{REVIEWS_ENDPOINT}", headers=HEADERS)
+        assert response.status_code == 200, (f"Запрос не выдал никакой информации."
+                                                 f" Статус код ответа: {response.status_code}")
+
+    #Тест скрыть отзыв к фильму (позитив)
+    def test_hide_movie_review(self, session_super_admin):
+        response = session_super_admin.patch(url=f"{BASE_URL}{MOVIES_ENDPOINT}"
+                                                    f"18569{REVIEWS_ENDPOINT}hide/{user_id}")
+        assert response.status_code == 200, "Отзыв скрыть не удалось."
+
+    #Тест показ отзыва к фильму (позитив)
+    def test_showing_a_movie_review(self, session_super_admin):
+        response = session_super_admin.patch(url=f"{BASE_URL}{MOVIES_ENDPOINT}"
+                                                    f"18569{REVIEWS_ENDPOINT}show/{user_id}")
+        assert response.status_code == 200, "Не удалось показать отзыв к фильму."
+
+    #Тест удалить отзыв к фильму (позитив)
+    def test_delete_a_movie_review(self, session_super_admin):
+        response = session_super_admin.delete(url=f"{BASE_URL}{MOVIES_ENDPOINT}{MOVIES_ID}{REVIEWS_ENDPOINT}")
+        assert response.status_code == 200, "Отзыв к фильму не удалось удалить."
+
+
+
+
 
 
 
