@@ -5,12 +5,12 @@ HEADERS = {
 }
 
 
-BASE_URL = "https://api.dev-cinescope.coconutqa.ru"
+BASE_URL = "https://api.dev-cinescope.coconutqa.ru/"
 MOVIES_ENDPOINT = "/movies/"
 GENRES_ENDPOINT = "/genres/"
 REVIEWS_ENDPOINT = "/reviews/"
 
-MOVIES_ID = 18569
+MOVIES_ID = 18988
 
 MOVIE = {
   "name": "Убийца 2",
@@ -23,11 +23,10 @@ MOVIE = {
 }
 
 modified_movie = {
-  "imageUrl": "https://avatars.mds.yandex.net/i?id=04b23fba8ae69c7cf5b337de28c9bcc3_l-3610079-images-thumbs&n=13",
-  "price": 565,
-  "location": "SPB",
-  "genreId": 7
-}
+        "price": 555,
+        "location": "SPB",
+        "genreId": 5
+    }
 
 review_body = {
   "rating": 5,
@@ -40,3 +39,9 @@ edited_review = {
 }
 
 user_id = "01993c58-0fd0-41fd-8976-f675521fc6f1"
+
+genre = {
+    "id": 7,
+    "name": "Дуна"
+}
+
